@@ -3,9 +3,7 @@ import classes from './Table.module.css';
 
 const table = (props) => (
     
-    <table className={classes.Table}           style={{
-        height: "400px" // This will force the table body to overflow and scroll, since there is not enough room
-      }}>
+    <table className={classes.Table} cellpadding="0" cellspacing="0" border="0">
         <thead>
             <tr>
                 <th>Name</th>
