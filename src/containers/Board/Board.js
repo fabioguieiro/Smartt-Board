@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from '../../axios';
+import Table from '../../components/Table/Table'
 
 class Board extends Component {
     state = {
@@ -8,7 +9,7 @@ class Board extends Component {
     async componentDidMount() {
         try {
             const coinsResponse = await axios.get('public?command=returnCurrencies')
-            const coins = Object.keys(coinsResponse.data).map(coin => coinsResponse.data[coin])
+            const coins = Object.keys(coinsResponse.data).map(coin => coinsResponse.data[coin]).slice(0, 20)
             this.setState({ coins })
         } catch (error) {
             console.log(error)
@@ -23,13 +24,15 @@ class Board extends Component {
             return <h1>carregando...</h1>
         }
         return (
-            <div className="App">
-                {this.state.coins.map(coin => {
-                    return <p key={coin.id}>{coin.name}</p>
-                })}
+            <div>
+                <Table info={this.state.coins} />
             </div>
         )
     }
 }
 
 export default Board;
+
+
+
+
