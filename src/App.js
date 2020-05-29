@@ -10,13 +10,13 @@ function App() {
 
       <Switch>
         <Route
+          path="/cryptocoin/:id"
+          component={CryptoCoin}
+        />
+        <Route
           path="/"
           component={Board}
           exact
-        />
-        <Route
-          path="/criptocoin/:id"
-          component={CryptoCoin}
         />
       </Switch>
 

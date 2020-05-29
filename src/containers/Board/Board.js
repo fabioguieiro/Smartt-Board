@@ -10,24 +10,46 @@ class Board extends Component {
         coins: [],
     }
     async componentDidMount() {
+        
         try {
             const coinsResponse = await axios.get('public?command=returnCurrencies')
-            const coins = Object.keys(coinsResponse.data).map(coin => coinsResponse.data[coin]).slice(0, 20)
+            const coinsValuesResponse = await axios.get('public?command=returnTicker')
+            // console.log(coinsResponse.data)
+            // console.log(coinsValuesResponse.data)
+            const coins = Object.keys(coinsResponse.data).map(coin => {
+                //console.log('name', `USDT_${coin}`)
+                // console.log('coin', coinsResponse.data[coin])
+                // console.log('values', coinsValuesResponse.data[`USD_${coin}`])
+                 return ({...coinsResponse.data[coin], ...coinsValuesResponse.data[`USDT_${coin}`]})
+                });
             this.setState({ coins })
-            console.log(coins)
+            this.cleanCoinsArray();
         } catch (error) {
             console.log(error)
         }
+    }
+    cleanCoinsArray(){
+        let cleanedCoins = [];
+        this.state.coins.map((coin, index) => {
+            if(coin.last){
+                cleanedCoins.push(coin)
+            }
+        })       
+        this.setState({
+            coins: cleanedCoins
+        }) 
+        console.log('new coins: ', this.state.coins)
     }
 
     render() {
         if (!this.state.coins) {
             return <h1>carregando...</h1>
         }
+        
         return (
             <div>
                 <Toolbar />
-                <Table info={this.state.coins} />
+                <Table info={this.state.coins} history={this.props.history} />
             </div>
         )
     }

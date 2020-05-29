@@ -1,14 +1,12 @@
 import React, { Component } from 'react'
 import classes from './Table.module.css';
-import { NavLink } from 'react-router-dom'
+
 import Cell from '../Cell/Cell'
 
 class Table extends Component {
 
     chooseCoinHandler(coinId) {
-        console.log('to aqui ' )
-        // const history = useHistory()
-        // history.push(`/criptocoin/${coinName}`, {coinName})
+        this.props.history.push({pathname:'/cryptocoin/' + coinId})
     }
     render() {
         return (
@@ -17,23 +15,21 @@ class Table extends Component {
                 <thead>
                     <tr>
                         <th>Name</th>
+                        <th>Last</th>
                         <th>txFee</th>
                         <th>minConf</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {this.props.info.map(coin => {
+                    {(this.props.info) ? this.props.info.map(coin => {
                         return (
-                            <NavLink
-                                to={"/criptocoin/" + coin.id}
-                                key={coin.id} >
                                 <Cell
+                                    key={coin.name}
                                     coin={coin}
                                     clicked={() => this.chooseCoinHandler(coin.id)} />
-                            </NavLink>
                         )
 
-                    })}
+                    }) : null}
                 </tbody>
             </table>
         )

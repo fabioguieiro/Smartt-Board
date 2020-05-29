@@ -5,7 +5,7 @@ import classes from './Toolbar.module.css'
 const toolbar = (props) => (
     <header className={classes.Toolbar}>
         <div className={classes.Logo}>
-            <Logo height="200%"/>
+            <Logo clicked={props.clicked} height="200%"/>
         </div>
         <nav className={classes.DesktopOnly}></nav>
     </header> 
