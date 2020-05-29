@@ -1,29 +1,42 @@
-import React from 'react'
+import React, { Component } from 'react'
 import classes from './Table.module.css';
+import { NavLink } from 'react-router-dom'
+import Cell from '../Cell/Cell'
 
-const table = (props) => (
-    
-    <table className={classes.Table} cellpadding="0" cellspacing="0" border="0">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>txFee</th>
-                <th>minConf</th>
-            </tr>
-        </thead>
-        <tbody>
-            {props.info.map(coin => {
-                return (
-                    <tr key={coin.id}>
-                        <td>{coin.name}</td>
-                        <td>{coin.txFee}</td>
-                        <td>{coin.minConf}</td>
+class Table extends Component {
+
+    chooseCoinHandler(coinId) {
+        console.log('to aqui ' )
+        // const history = useHistory()
+        // history.push(`/criptocoin/${coinName}`, {coinName})
+    }
+    render() {
+        return (
+
+            <table className={classes.Table} cellPadding="0" cellSpacing="0" border="0">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>txFee</th>
+                        <th>minConf</th>
                     </tr>
-                )
+                </thead>
+                <tbody>
+                    {this.props.info.map(coin => {
+                        return (
+                            <NavLink
+                                to={"/criptocoin/" + coin.id}
+                                key={coin.id} >
+                                <Cell
+                                    coin={coin}
+                                    clicked={() => this.chooseCoinHandler(coin.id)} />
+                            </NavLink>
+                        )
 
-            })}
-        </tbody>
-    </table>
-)
-
-export default table;
+                    })}
+                </tbody>
+            </table>
+        )
+    }
+}
+export default Table;

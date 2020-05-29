@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+
 import axios from '../../axios';
-import Table from '../../components/Table/Table'
+import Table from '../../components/Table/Table';
+import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
+
 
 class Board extends Component {
     state = {
@@ -11,12 +14,10 @@ class Board extends Component {
             const coinsResponse = await axios.get('public?command=returnCurrencies')
             const coins = Object.keys(coinsResponse.data).map(coin => coinsResponse.data[coin]).slice(0, 20)
             this.setState({ coins })
+            console.log(coins)
         } catch (error) {
             console.log(error)
         }
-    }
-    renderCoins() {
-
     }
 
     render() {
@@ -25,6 +26,7 @@ class Board extends Component {
         }
         return (
             <div>
+                <Toolbar />
                 <Table info={this.state.coins} />
             </div>
         )
