@@ -1,0 +1,10 @@
+
+.div {
+    position: absolute;
+    margin-top: 10%;
+    margin-left: 10%;
+    border-radius: 5%;
+    width: 80%;
+    height: 80%;
+    background-color: #ffffff;
+  }

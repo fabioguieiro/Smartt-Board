@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import axios from '../../axios';
+import Aux from '../../hoc/Auxiliary'
 import Table from '../../components/Table/Table';
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
 import classes from './Board.module.css';
@@ -52,20 +53,20 @@ class Board extends Component {
     render() {
         if (this.state.coins.length === 0) {
             return (
-                <div>
+                <Aux>
                     <Toolbar />
                     <div className={classes.center}>
                         <div className={classes.loader}></div>
                     </div>
-                </div>
+                </Aux>
             )
         }
 
         return (
-            <div>
+            <Aux>
                 <Toolbar />
                 <Table info={this.state.coins} history={this.props.history} />
-            </div>
+            </Aux>
         )
     }
 }
