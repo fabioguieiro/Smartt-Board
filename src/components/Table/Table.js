@@ -15,9 +15,7 @@ class Table extends Component {
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Last</th>
-                        <th>txFee</th>
-                        <th>minConf</th>
+                        <th>Price(USD)</th>
                     </tr>
                 </thead>
                 <tbody>
