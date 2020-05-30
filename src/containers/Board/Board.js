@@ -27,6 +27,7 @@ class Board extends Component {
             this.setState({ coins })
             this.cleanCoinsArray();
             this.orderCoins();
+            console.log(this.state.coins)
         } catch (error) {
             console.log(error)
         }
