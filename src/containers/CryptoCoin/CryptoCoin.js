@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { useLocation } from 'react-router-dom'
 import axios from '../../axios';
 
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar'
@@ -17,17 +16,11 @@ class CryptoCoin extends Component {
         try {
             const coinsResponse = await axios.get('public?command=returnCurrencies')
             const coinsValuesResponse = await axios.get('public?command=returnTicker')
-            // console.log(coinsResponse.data)
-            // console.log(coinsValuesResponse.data)
             const coins = Object.keys(coinsResponse.data).map(coin => {
-                //console.log('name', `USDT_${coin}`)
-                // console.log('coin', coinsResponse.data[coin])
-                // console.log('values', coinsValuesResponse.data[`USD_${coin}`])
                 return ({ ...coinsResponse.data[coin], ...coinsValuesResponse.data[`USDT_${coin}`] })
             });
             this.setState({ coins })
             this.cleanCoinsArray();
-            this.orderCoins();
             this.chooseCoin()
         } catch (error) {
             console.log(error)
@@ -37,6 +30,8 @@ class CryptoCoin extends Component {
         let cleanedCoins = [];
         this.state.coins.map((coin) => {
             if (coin.last) {
+                const FourDecimals = coin.last.length - 4      //finds out the number of characters that the string must have
+                coin.last = coin.last.slice(0, FourDecimals)   //slices the string so I can show 4 decimal numbers 
                 cleanedCoins.push(coin)
             }
             return coin;
@@ -45,12 +40,6 @@ class CryptoCoin extends Component {
             coins: cleanedCoins
         })
     }
-    orderCoins() {
-        let auxCoins = this.state.coins
-        auxCoins.sort((a, b) => { return b.last - a.last });
-        this.setState({ coins: auxCoins })
-    }
-
 
 
 
@@ -60,6 +49,7 @@ class CryptoCoin extends Component {
             if(coin.id == id){
                 this.setState({chosenCoin: coin})
             }
+            return coin;
         })
     }
     logoClickedHandler(props) {
@@ -73,7 +63,6 @@ class CryptoCoin extends Component {
                 <div className={classes.div}>
                     <h1>{this.state.chosenCoin.name}</h1>
                     <h1>{this.state.chosenCoin.last}</h1>
-
                 </div>
             </Aux>
         )

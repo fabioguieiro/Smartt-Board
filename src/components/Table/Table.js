@@ -12,17 +12,12 @@ class Table extends Component {
         return (
 
             <table className={classes.Table} cellPadding="0" cellSpacing="0" border="0">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Price(USD)</th>
-                    </tr>
-                </thead>
                 <tbody>
-                    {(this.props.info) ? this.props.info.map(coin => {
+                    {(this.props.info) ? this.props.info.map((coin,index) => {
                         return (
                                 <Cell
-                                    key={coin.name}
+                                    key={index}
+                                    index={index + 1}
                                     coin={coin}
                                     clicked={() => this.chooseCoinHandler(coin.id)} />
                         )
