@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import axios from '../../axios';
 import Table from '../../components/Table/Table';
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
+import classes from './Board.module.css';
 
 
 class Board extends Component {
@@ -22,7 +23,7 @@ class Board extends Component {
                 // console.log('values', coinsValuesResponse.data[`USD_${coin}`])
                 return ({ ...coinsResponse.data[coin], ...coinsValuesResponse.data[`USDT_${coin}`] })
             });
-            this.setState({coins})
+            this.setState({ coins })
             this.cleanCoinsArray();
             this.orderCoins();
         } catch (error) {
@@ -44,13 +45,20 @@ class Board extends Component {
     }
     orderCoins() {
         let auxCoins = this.state.coins
-        auxCoins.sort( (a, b) => {return  b.last - a.last});
-        this.setState({coins: auxCoins})
+        auxCoins.sort((a, b) => { return b.last - a.last });
+        this.setState({ coins: auxCoins })
     }
 
     render() {
-        if (!this.state.coins) {
-            return <h1>carregando...</h1>
+        if (this.state.coins.length === 0) {
+            return (
+                <div>
+                    <Toolbar />
+                    <div className={classes.center}>
+                        <div className={classes.loader}></div>
+                    </div>
+                </div>
+            )
         }
 
         return (
