@@ -5,28 +5,28 @@
 
  Um sistema para acompanhamento em tempo real de cotações de criptomoedas. 
 
-###Tecnologias utilizadas
+### Tecnologias utilizadas
 - React 16.13.1
 - React Router DOM 16.13.1
 - Axios 0.19.2
 
-###Como Executar 
+### Como Executar 
 É necessário que a máquina que executará este código conte com algum gerenciador de pacotes como o [npm](https://www.npmjs.com/) ou [yarn](https://yarnpkg.com/)
 
 Com o gerenciador de pacotes instalado, clone este repositório, abra o terminal do sistema operacional na pasta onde o projeto foi clonado e execute um dos seguintes comandos (dependendo do gerenciador de pacote que será utilizado): 
 
-#####npm
+##### npm
 `$ npm install`
 
-#####yarn
+##### yarn
 `$ yarn install`
 
 Este comando irá instalar todas as dependencias necessárias para rodar o projeto. Em seguida, execute um dos seguintes comandos, também dependendo do gerenciador de pacotes escolhido: 
 
-#####npm
+##### npm
 `$ npm start`
 
-#####yarn
+##### yarn
 `$ yarn start`
 
 O resultado desse comando será algo parecido com isso: 
