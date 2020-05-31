@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
 
 import axios from '../../axios';
+
 import Aux from '../../hoc/Auxiliary'
 import Table from '../../components/Table/Table';
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
+import Pagination from '../../components/Navigation/Pagination/Pagination'
+
 import classes from './Board.module.css';
 
 
 class Board extends Component {
     state = {
         coins: [],
-        search: ""
+        search: "",
+        paginatedContent: []
     }
     async componentDidMount() { //loads the data from the endpoints
         try {
@@ -22,6 +26,7 @@ class Board extends Component {
             this.setState({ coins })
             this.cleanCoinsArray();
             this.orderCoins();
+            this.sliceContent();
             console.log('coins: ', this.state.coins)
         } catch (error) {
             console.log(error)
@@ -50,6 +55,9 @@ class Board extends Component {
         auxCoins.sort((a, b) => { return b.last - a.last });
         this.setState({ coins: auxCoins })
     }
+    sliceContent(){
+        this.setState({paginatedContent: this.state.coins.slice(0,20)})
+    }
     render() {
         if (this.state.coins.length === 0) {
             return (
@@ -66,6 +74,7 @@ class Board extends Component {
             <Aux>
                 <Toolbar />
                 <Table info={this.state.coins} history={this.props.history} />
+                <Pagination info={this.state.coins}/>
             </Aux>
         )
     }

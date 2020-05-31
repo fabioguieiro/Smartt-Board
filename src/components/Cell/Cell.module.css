@@ -5,7 +5,10 @@ color: #f03316;
 .Table .green{
 color: #2de35e;
 }
-
+Table img{
+  position: relative;
+  width: 30px;
+}
   .Table .noWrap{
     white-space: nowrap;
   }
