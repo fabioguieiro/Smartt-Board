@@ -61,8 +61,8 @@ class CryptoCoin extends Component {
             <Aux>
                 <Toolbar clicked={() => this.logoClickedHandler(this.props)} />
                 <div className={classes.div}>
-                    <h1>{this.state.chosenCoin.name}</h1>
-                    <h1>{this.state.chosenCoin.last}</h1>
+                    <h1 className={classes.title}>{this.state.chosenCoin.name}</h1>
+                    <h1 className={classes.value}> U$ {this.state.chosenCoin.last}</h1>
                 </div>
             </Aux>
         )

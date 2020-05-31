@@ -10,6 +10,7 @@ import classes from './Board.module.css';
 class Board extends Component {
     state = {
         coins: [],
+        search: ""
     }
     async componentDidMount() { //loads the data from the endpoints
         try {
@@ -49,7 +50,6 @@ class Board extends Component {
         auxCoins.sort((a, b) => { return b.last - a.last });
         this.setState({ coins: auxCoins })
     }
-
     render() {
         if (this.state.coins.length === 0) {
             return (
