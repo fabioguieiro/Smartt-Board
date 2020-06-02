@@ -12,11 +12,14 @@ Table img{
   .Table .noWrap{
     white-space: nowrap;
   }
+  .coinValues{
+    vertical-align: bottom !important;
+  }
  .Table td{
     height: 70px;
     max-width: 57px;
     font-family: 'Roboto', sans-serif;
-    padding: 15px;
+    padding: 10px;
     text-align: left;
     vertical-align:middle;
     font-weight: 300;

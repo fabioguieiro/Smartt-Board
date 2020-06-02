@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import axios from '../../axios'; 
 
+import { connect } from 'react-redux'
 import Aux from '../../hoc/Auxiliary'
 import Table from '../../components/Table/Table';
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
 
 import classes from './Board.module.css';
+import aux from '../../hoc/Auxiliary';
 
 
 class Board extends Component {
@@ -94,8 +96,9 @@ class Board extends Component {
     }
 }
 
-export default Board;
+const mapStateToProps = (state) => ({
+    starred: state.starred.starred
+})
 
-
-
+export default connect(mapStateToProps,null)(Board);
 

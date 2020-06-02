@@ -34,3 +34,22 @@ O resultado desse comando será algo parecido com isso:
 ![](https://i.imgur.com/BMGtiKj.png)
 
 Agora basta digitar o endereço local, retornado no terminal, no navegador de sua preferencia, ou ainda usar o endereço a frente de "On Your Network" em qualquer dispositivo conectado à mesma rede.
+
+
+### Funcionalidades
+
+Adicione marque suas moedas favoritas.
+
+![](https://media.giphy.com/media/hv4Euz8F3bRlIWBV66/giphy.gif)
+
+Encontre moedas rapidamente através da pesquisa.
+
+![](https://media.giphy.com/media/VEV2pHenGdlymtniwV/giphy.gif)
+
+Conteúdo dividido em paginas de até 20 moedas.
+
+![](https://media.giphy.com/media/W50tK2zuPZovzUdKRf/giphy.gif)
+
+Clique na moeda para ver maiores informações.
+
+![](https://media.giphy.com/media/daUgeu4UJdnwQaKOit/giphy.gif)

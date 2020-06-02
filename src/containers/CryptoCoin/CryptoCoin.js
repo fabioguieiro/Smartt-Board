@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from '../../axios';
-
+import Chart from '../../components/Chart/Chart'
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar'
 import Aux from '../../hoc/Auxiliary'
 import EmptyStar from '../../assets/icons/star-regular.svg'
@@ -14,7 +14,8 @@ class CryptoCoin extends Component {
 
     state = {
         coins: [],
-        chosenCoin: {}
+        chosenCoin: {},
+        coinHistory: []
     }
     async componentDidMount() {
 
@@ -22,14 +23,14 @@ class CryptoCoin extends Component {
             const coinsResponse = await axios.get('public?command=returnCurrencies')
             const coinsValuesResponse = await axios.get('public?command=returnTicker')
             const coinsVolumeResponse = await axios.get('public?command=returnTicker')
-            //const coinsHistoryResponse = await axios.get('public?command=returnTicker')
             const coins = Object.keys(coinsResponse.data).map(coin => {
                 return ({ ...coinsResponse.data[coin], ...coinsValuesResponse.data[`USDT_${coin}`], coin })
             });
             this.setState({ coins })
             this.cleanCoinsArray();
             this.chooseCoin()
-            console.log('[cryptocoin.js] coinsVolumeResponse: ', this.state.coins)
+            this.requestHistory();
+            // console.log('[cryptocoin.js] coinsHistoryResponse: ', coinsHistoryResponse)
         } catch (error) {
             console.log(error)
         }
@@ -57,12 +58,22 @@ class CryptoCoin extends Component {
 
     chooseCoin() {
         let id = this.props.match.params.id;
-        this.state.coins.map(coin => {
+        this.state.coins.filter(coin => {
             if (coin.id == id) {
-                this.setState({ chosenCoin: coin })
+                return this.setState({ chosenCoin: coin })
             }
-            return coin;
         })
+    }
+    async requestHistory(){
+        
+        try{
+            const coinsHistoryResponse = await axios.get(`public?command=returnChartData&currencyPair=USDT_${this.state.chosenCoin.coin}&start=1588413600&end=1591092000&period=14400`)
+            this.setState({coinHistory: coinsHistoryResponse.data})
+            console.log(`USDT_${this.state.chosenCoin.coin}`, this.state.coinHistory)
+        }
+        catch{
+            console.log('request error')
+        }
     }
     logoClickedHandler(props) {
         props.history.push({ pathname: '/' })
@@ -90,6 +101,9 @@ class CryptoCoin extends Component {
                     <div className={classes.head}>
                         <img src={'/logos/' + this.state.chosenCoin.id + '.svg'} className={classes.logo} />
                         <h1 className={classes.title}>{this.state.chosenCoin.name}</h1>
+                    </div>
+                    <div className={classes.chart}>
+                        <Chart  historicValues={this.state.coinHistory}/>
                     </div>
                     <p className={classes.value}> U$ {this.state.chosenCoin.last}</p>
                     <hr className={classes.divisor}></hr>
