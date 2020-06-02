@@ -81,14 +81,14 @@
   margin-left: 10%;
   border-radius: 5%;
   width: 80%;
-  height: 80%;
+  height: 75%;
   background-color: #ffffff;
   font-family: Roboto, sans-serif;
 
 }
 .head{
   display: flex;
-  margin-top: 5%;
+  margin-top: 3%;
   margin-left: 5%;
 }
 .infoContainer{
@@ -116,7 +116,7 @@
 .info{
   font-size: 10px;
 }
-.cardTitile{
+.cardTitle{
   color: #1d1c1c;
   font-weight: bold;
   font-size: 15px;
@@ -129,35 +129,75 @@
 .logo{
   width: 50px;
 }
+.star{
+  width: 25px;
+  margin-left: 47%;
+  margin-top: 3%;
+}
 .value{
-  margin-top: 80%;
+  margin-top: 70%;
   font-size: 25px;
   font-weight: 400;
   margin-right: 20px;
   float: right;
 }
-@media (min-width: 600px){
+@media (min-width: 900px){
   .title{
     font-size: 40px;
   }
   .value{
-    margin-top: 50%;
+    margin-top: 5%;
     font-size: 40px;
   }
-  .cardTitile{
+  .cardTitle{
     font-size: 18px;
   }
   .info{
     font-size: 15px;
   }
   .divisor{
-    margin-top:65%;
+    margin-top:10%;
   }
   .div {
     margin-top: 0%;
   }
   .BackIcon{
-    width: 3%;
-    margin-top: 5%;
+    width: 20px;
+    margin-top: 2%;
+  }
+  .star{
+    width: 50px;
+    margin-left: 47.5%;
+  }
+}
+
+
+@media (min-width: 1500px){
+  .title{
+    font-size: 40px;
+  }
+  .value{
+    margin-top: 15%;
+    font-size: 40px;
+  }
+  .cardTitle{
+    font-size: 18px;
+  }
+  .info{
+    font-size: 15px;
+  }
+  .divisor{
+    margin-top: 15%;
+  }
+  .div {
+    margin-top: 0%;
+  }
+  .BackIcon{
+    width: 2%;
+    margin-top: 3%;
+  }
+  .star{
+    width: 50px;
+    margin-left: 48.3%;
   }
 }

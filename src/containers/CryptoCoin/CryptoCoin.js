@@ -1,10 +1,14 @@
 import React, { Component } from 'react'
 import axios from '../../axios';
-import {useHistory} from 'react-router-dom'
+
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar'
 import Aux from '../../hoc/Auxiliary'
-import classes from './CryptoCoin.module.css'
+import EmptyStar from '../../assets/icons/star-regular.svg'
+import FullStar from '../../assets/icons/star-solid.svg'
 import BackIcon from '../../assets/icons/back.svg'
+import classes from './CryptoCoin.module.css'
+import { connect } from 'react-redux'
+import {addStarred, removeStarred} from '../../store/actions'
 
 class CryptoCoin extends Component {
 
@@ -43,7 +47,13 @@ class CryptoCoin extends Component {
         })
     }
 
-
+    toggleStarred(coinId){
+        if(this.props.starred.includes(coinId)){
+            this.props.removeStarred({coinId})
+        }else{
+            this.props.addStarred({coinId})
+        }
+    }
 
     chooseCoin() {
         let id = this.props.match.params.id;
@@ -76,6 +86,7 @@ class CryptoCoin extends Component {
                 <Toolbar clicked={() => this.logoClickedHandler(this.props)} />
                 <img className={classes.BackIcon} src={BackIcon} onClick={() => this.goBackHandler(this.props)}></img>
                 <div className={classes.div}>
+                    <img src={this.props.starred.includes(this.state.chosenCoin.id) ? FullStar : EmptyStar} onClick={() => this.toggleStarred(this.state.chosenCoin.id)} className={classes.star}></img>
                     <div className={classes.head}>
                         <img src={'/logos/' + this.state.chosenCoin.id + '.svg'} className={classes.logo} />
                         <h1 className={classes.title}>{this.state.chosenCoin.name}</h1>
@@ -84,15 +95,15 @@ class CryptoCoin extends Component {
                     <hr className={classes.divisor}></hr>
                     <div className={classes.infoContainer}>
                         <div className={classes.infoCard}>
-                            <p className={classes.cardTitile}> Volume (24h)</p>
+                            <p className={classes.cardTitle}> Volume (24h)</p>
                             <p className={classes.info}> U$ {this.state.chosenCoin.baseVolume}</p>
                         </div>
                         <div className={classes.infoCard}>
-                            <p className={classes.cardTitile}> variação</p>
+                            <p className={classes.cardTitle}> variação</p>
                             <p className={classes.info}> {this.state.chosenCoin.percentChange}%</p>
                         </div>
                         <div className={classes.infoCard}>
-                            <p className={classes.cardTitile}> Taxa para transação</p>
+                            <p className={classes.cardTitle}> Taxa para transação</p>
                             <p className={classes.info}>{this.state.chosenCoin.txFee} {this.state.chosenCoin.coin}</p>
                         </div>
                     </div>
@@ -102,4 +113,14 @@ class CryptoCoin extends Component {
     }
 }
 
-export default CryptoCoin;
+
+const mapStateToProps = (state) => ({
+    starred: state.starred.starred
+})
+const mapDispatchToProps = (dispatch) => ({
+    addStarred: ( coinId ) => dispatch( addStarred(coinId) ),
+    removeStarred: (coinId) => dispatch( removeStarred(coinId) )
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(CryptoCoin);
+

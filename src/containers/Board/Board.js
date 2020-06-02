@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-
-import axios from '../../axios';
+import axios from '../../axios'; 
 
 import Aux from '../../hoc/Auxiliary'
 import Table from '../../components/Table/Table';
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
-import Pagination from '../../components/Navigation/Pagination/Pagination'
 
 import classes from './Board.module.css';
 
@@ -67,7 +65,7 @@ class Board extends Component {
         for(let i = 1;i <= numberOfPages; i++)
             pages.push(i) 
         let pagination = pages.map((page,index) => {
-            return <button className={ this.state.paginationIndex === index ? classes.selected : classes.button} key={index} onClick={() => this.setState({paginationIndex: index})}>{page}</button>
+            return <button className={ this.state.paginationIndex === index ? classes.selected : classes.button} key={index} onClick={() => {this.setState({paginationIndex: index})}}>{page}</button>
         })
         return pagination
     }
