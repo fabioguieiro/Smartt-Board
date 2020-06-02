@@ -9,6 +9,8 @@
 - React 16.13.1
 - React Router DOM 16.13.1
 - Axios 0.19.2
+- react-redux 7.2.0
+- chart.js 2.9.3
 
 ### Como Executar 
 É necessário que a máquina que executará este código conte com algum gerenciador de pacotes como o [npm](https://www.npmjs.com/) ou [yarn](https://yarnpkg.com/)
@@ -38,7 +40,7 @@ Agora basta digitar o endereço local, retornado no terminal, no navegador de su
 
 ### Funcionalidades
 
-Adicione marque suas moedas favoritas.
+Marque suas moedas favoritas.
 
 ![](https://media.giphy.com/media/hv4Euz8F3bRlIWBV66/giphy.gif)
 
