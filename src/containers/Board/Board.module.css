@@ -68,4 +68,46 @@
       transform: rotate(360deg);
     }
   }
-  
+  .button{
+    background-color: #0f1820;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    color: #00a59d;
+    position: relative;
+    width: 30px;
+    height: 30px;
+    border-style: solid;
+    border-color: #00a59d;
+    border-width: 1px;
+    border-radius: 5px;
+  }
+  .button:active{
+    color: #0f1820;
+    background-color: #00a59d;
+  }
+  .selected{
+    width: 30px;
+    height: 30px;
+    border-color: #00a59d;
+    border-width: 1px;
+    border-radius: 5px;
+    border-style: solid;
+    color: #0f1820;
+    background-color: #00a59d;
+  }
+  .buttonContainer{
+    position: relative;
+    margin-left: 20%;
+    margin-top: 20%;
+    margin-bottom: 2%;
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+  }
+  @media (min-width: 499px){
+    .buttonContainer{
+      margin-left: 35%;
+      margin-top: 8%;
+      width: 30%;
+    }
+  }

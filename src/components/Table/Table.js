@@ -5,12 +5,9 @@ import Cell from '../Cell/Cell'
 
 class Table extends Component {
     state = {
-        coins: [],
         search: ""
     }
-    componentDidUpdate() {
-        this.state.coins = this.props.info
-    }
+
     updateSearchHandler(event) {
         this.setState({ search: event.target.value })
     }
@@ -18,7 +15,8 @@ class Table extends Component {
         this.props.history.push({ pathname: '/cryptocoin/' + coinId })
     }
     render() {
-        let filteredCoins = this.state.coins.filter(
+        if (!this.props.coins) return null
+        let filteredCoins = this.props.coins.filter(
             (coin) => {
                 return coin.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
             }
@@ -30,7 +28,7 @@ class Table extends Component {
                 </div>
                 <table className={classes.Table} cellPadding="0" cellSpacing="0" border="0">
                     <tbody>
-                        {(this.state.coins) ? filteredCoins.map((coin, index) => {
+                        {(this.props.coins) ? filteredCoins.map((coin, index) => {
                             return (
                                 <Cell
                                     key={index}

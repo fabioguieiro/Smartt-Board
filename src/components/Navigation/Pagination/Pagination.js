@@ -12,7 +12,7 @@ class Pagination extends Component {
     numberOfPagesHandler() {
         let number = Math.ceil(this.state.coins.length / 20)
         for (let i = 1; i <= number; i++) {
-            this.state.pages.push(i)
+            this.state.pages[i] = i
         }
         return number
     }

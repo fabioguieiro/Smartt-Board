@@ -14,7 +14,7 @@ class Board extends Component {
     state = {
         coins: [],
         search: "",
-        paginatedContent: []
+        paginationIndex: 0
     }
     async componentDidMount() { //loads the data from the endpoints
         try {
@@ -26,7 +26,7 @@ class Board extends Component {
             this.setState({ coins })
             this.cleanCoinsArray();
             this.orderCoins();
-            this.sliceContent();
+            this.sliceContent(0);
             console.log('coins: ', this.state.coins)
         } catch (error) {
             console.log(error)
@@ -55,10 +55,24 @@ class Board extends Component {
         auxCoins.sort((a, b) => { return b.last - a.last });
         this.setState({ coins: auxCoins })
     }
-    sliceContent(){
-        this.setState({paginatedContent: this.state.coins.slice(0,20)})
+    sliceContent(number){
+        const base = number * 20;
+        const floor = base + 20;
+        return this.state.coins.slice(base, floor)
+    }
+    createPagination(){
+
+        let numberOfPages = Math.ceil(this.state.coins.length /20)
+        let pages = []
+        for(let i = 1;i <= numberOfPages; i++)
+            pages.push(i) 
+        let pagination = pages.map((page,index) => {
+            return <button className={ this.state.paginationIndex === index ? classes.selected : classes.button} key={index} onClick={() => this.setState({paginationIndex: index})}>{page}</button>
+        })
+        return pagination
     }
     render() {
+        
         if (this.state.coins.length === 0) {
             return (
                 <Aux>
@@ -69,12 +83,14 @@ class Board extends Component {
                 </Aux>
             )
         }
-
+        const paginatedContent = this.sliceContent(this.state.paginationIndex)
         return (
             <Aux>
                 <Toolbar />
-                <Table info={this.state.coins} history={this.props.history} />
-                <Pagination info={this.state.coins}/>
+                <Table coins={paginatedContent} history={this.props.history} />
+                <div className={classes.buttonContainer}>
+                    {this.createPagination()}
+                </div>
             </Aux>
         )
     }
