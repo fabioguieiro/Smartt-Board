@@ -1,6 +1,6 @@
 import React from 'react'
-import SmartBoardLogo from '../../assets/images/smart-board-logo.png'
 import classes from './Logo.module.css'
+import SmartBoardLogo from '../../assets/images/smart-board-logo.png'
 
 
 const logo = (props) => (

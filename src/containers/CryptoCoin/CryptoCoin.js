@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import {addStarred, removeStarred} from '../../store/actions'
 import axios from '../../axios';
 import Chart from '../../components/Chart/Chart'
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar'
 import Aux from '../../hoc/Auxiliary'
+import classes from './CryptoCoin.module.css'
 import EmptyStar from '../../assets/icons/star-regular.svg'
 import FullStar from '../../assets/icons/star-solid.svg'
 import BackIcon from '../../assets/icons/back.svg'
-import classes from './CryptoCoin.module.css'
-import { connect } from 'react-redux'
-import {addStarred, removeStarred} from '../../store/actions'
 
 class CryptoCoin extends Component {
 
@@ -22,26 +22,21 @@ class CryptoCoin extends Component {
         try {
             const coinsResponse = await axios.get('public?command=returnCurrencies')
             const coinsValuesResponse = await axios.get('public?command=returnTicker')
-            const coinsVolumeResponse = await axios.get('public?command=returnTicker')
             const coins = Object.keys(coinsResponse.data).map(coin => {
                 return ({ ...coinsResponse.data[coin], ...coinsValuesResponse.data[`USDT_${coin}`], coin })
             });
-            this.setState({ coins })
+            this.setState({ coins });
             this.cleanCoinsArray();
-            this.chooseCoin()
+            this.chooseCoin();
             this.requestHistory();
-            // console.log('[cryptocoin.js] coinsHistoryResponse: ', coinsHistoryResponse)
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     }
     cleanCoinsArray() {
         let cleanedCoins = [];
-        this.state.coins.map((coin) => {
-            if (coin.last) {
-                cleanedCoins.push(coin)
-            }
-            return coin;
+        cleanedCoins = this.state.coins.filter((coin) => {
+                return coin.last;
         })
         this.setState({
             coins: cleanedCoins
@@ -50,26 +45,24 @@ class CryptoCoin extends Component {
 
     toggleStarred(coinId){
         if(this.props.starred.includes(coinId)){
-            this.props.removeStarred({coinId})
+            this.props.removeStarred({coinId});
         }else{
-            this.props.addStarred({coinId})
+            this.props.addStarred({coinId});
         }
     }
 
     chooseCoin() {
-        let id = this.props.match.params.id;
-        this.state.coins.filter(coin => {
-            if (coin.id == id) {
-                return this.setState({ chosenCoin: coin })
-            }
+        const id = parseInt(this.props.match.params.id);
+        const coin = this.state.coins.find(coin => {
+            return coin.id === id 
         })
+        this.setState({ chosenCoin: coin })
     }
     async requestHistory(){
         
         try{
             const coinsHistoryResponse = await axios.get(`public?command=returnChartData&currencyPair=USDT_${this.state.chosenCoin.coin}&start=1588413600&end=1591092000&period=14400`)
             this.setState({coinHistory: coinsHistoryResponse.data})
-            console.log(`USDT_${this.state.chosenCoin.coin}`, this.state.coinHistory)
         }
         catch{
             console.log('request error')
@@ -95,11 +88,11 @@ class CryptoCoin extends Component {
         return (
             <Aux>
                 <Toolbar clicked={() => this.logoClickedHandler(this.props)} />
-                <img className={classes.BackIcon} src={BackIcon} onClick={() => this.goBackHandler(this.props)}></img>
+                <img className={classes.BackIcon} alt={'back button'} src={BackIcon} onClick={() => this.goBackHandler(this.props)}></img>
                 <div className={classes.div}>
-                    <img src={this.props.starred.includes(this.state.chosenCoin.id) ? FullStar : EmptyStar} onClick={() => this.toggleStarred(this.state.chosenCoin.id)} className={classes.star}></img>
+                    <img alt={'star button'} src={this.props.starred.includes(this.state.chosenCoin.id) ? FullStar : EmptyStar} onClick={() => this.toggleStarred(this.state.chosenCoin.id)} className={classes.star}></img>
                     <div className={classes.head}>
-                        <img src={'/logos/' + this.state.chosenCoin.id + '.svg'} className={classes.logo} />
+                        <img alt={'coin logo'} src={'/logos/' + this.state.chosenCoin.id + '.svg'} className={classes.logo} />
                         <h1 className={classes.title}>{this.state.chosenCoin.name}</h1>
                     </div>
                     <div className={classes.chart}>
